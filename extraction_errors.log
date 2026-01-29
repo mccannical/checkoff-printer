@@ -1,0 +1,196 @@
+2026-01-29 12:54:40,333 - INFO - Found 48 URLs to process.
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/category/making-money-from-a-food-blog
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/category/making-money-from-a-food-blog: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/chicken-recipes-to-make-on-repeat
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/chicken-recipes-to-make-on-repeat: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/chipotle-salmon-with-orange-salsa-and-aji-verde
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/chipotle-salmon-with-orange-salsa-and-aji-verde: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/creamy-chicken-and-gnocchi
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/creamy-chicken-and-gnocchi: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/everything-you-need-to-know-about-sugar-free-january
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/everything-you-need-to-know-about-sugar-free-january: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/focaccia-grinder-sandwich
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/focaccia-grinder-sandwich: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/freezer-meals
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/freezer-meals: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/marry-me-chickpeas-and-orzo
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/marry-me-chickpeas-and-orzo: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/media-mentions
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/media-mentions: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/miso-peanut-ramen-bowls
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/miso-peanut-ramen-bowls: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/privacy-policy
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/privacy-policy: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/recipes
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/recipes: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/resources
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/resources: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/sheet-pan-breakfast-burritos-with-creamy-chipotle-sauce
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/sheet-pan-breakfast-burritos-with-creamy-chipotle-sauce: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/slow-cooker-chicken-pot-pie-soup
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/slow-cooker-chicken-pot-pie-soup: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/sponsored-content
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/sponsored-content: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/sticky-beef-and-peanut-noodles
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/sticky-beef-and-peanut-noodles: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/teriyaki-tofu-bowls-with-kimchi-mayo
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/teriyaki-tofu-bowls-with-kimchi-mayo: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/terms-of-service
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/terms-of-service: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/the-best-avocado-egg-salad
+2026-01-29 12:54:40,333 - ERROR - Failed to process https://pinchofyum.com/the-best-avocado-egg-salad: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,333 - INFO - Processing: https://pinchofyum.com/the-best-soft-chocolate-chip-cookies
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://pinchofyum.com/the-best-soft-chocolate-chip-cookies: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://pinchofyum.com/trader-joes-chicken-shawarma-with-lemon-rice
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://pinchofyum.com/trader-joes-chicken-shawarma-with-lemon-rice: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://pinchofyum.com/vegan-crunchwrap
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://pinchofyum.com/vegan-crunchwrap: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://pinchofyum.com/zuppa-toscana
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://pinchofyum.com/zuppa-toscana: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://www.allrecipes.com/recipe/151595/campbells-green-bean-casserole/
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://www.allrecipes.com/recipe/151595/campbells-green-bean-casserole/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://www.allrecipes.com/recipe/25199/sweet-and-sour-meatballs-suan-tien-niu-jou-po-lo-la-tzu/
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://www.allrecipes.com/recipe/25199/sweet-and-sour-meatballs-suan-tien-niu-jou-po-lo-la-tzu/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://www.simplyrecipes.com/recipes/baked_ziti/
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/baked_ziti/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://www.simplyrecipes.com/recipes/banana_bread/
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/banana_bread/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://www.simplyrecipes.com/recipes/best_lasagna_recipe/
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/best_lasagna_recipe/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://www.simplyrecipes.com/recipes/cilantro_lime_rice/
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/cilantro_lime_rice/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://www.simplyrecipes.com/recipes/classic_roast_beef/
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/classic_roast_beef/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://www.simplyrecipes.com/recipes/easy_shepherds_pie/
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/easy_shepherds_pie/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://www.simplyrecipes.com/recipes/french_onion_soup/
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/french_onion_soup/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://www.simplyrecipes.com/recipes/grilled_mexican_street_corn_elotes/
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/grilled_mexican_street_corn_elotes/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,334 - INFO - Processing: https://www.simplyrecipes.com/recipes/homemade_pizza/
+2026-01-29 12:54:40,334 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/homemade_pizza/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Processing: https://www.simplyrecipes.com/recipes/how_to_make_an_omelette/
+2026-01-29 12:54:40,335 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/how_to_make_an_omelette/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Processing: https://www.simplyrecipes.com/recipes/nachos/
+2026-01-29 12:54:40,335 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/nachos/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Processing: https://www.simplyrecipes.com/recipes/oven_baked_sweet_potato_fries/
+2026-01-29 12:54:40,335 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/oven_baked_sweet_potato_fries/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Processing: https://www.simplyrecipes.com/recipes/perfect_guacamole/
+2026-01-29 12:54:40,335 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/perfect_guacamole/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Processing: https://www.simplyrecipes.com/recipes/perfect_lemonade/
+2026-01-29 12:54:40,335 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/perfect_lemonade/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Processing: https://www.simplyrecipes.com/recipes/perfect_mashed_potatoes/
+2026-01-29 12:54:40,335 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/perfect_mashed_potatoes/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Processing: https://www.simplyrecipes.com/recipes/perfect_popcorn/
+2026-01-29 12:54:40,335 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/perfect_popcorn/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Processing: https://www.simplyrecipes.com/recipes/prime_rib_roast/
+2026-01-29 12:54:40,335 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/prime_rib_roast/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Processing: https://www.simplyrecipes.com/recipes/roasted_broccoli_with_parmesan/
+2026-01-29 12:54:40,335 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/roasted_broccoli_with_parmesan/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Processing: https://www.simplyrecipes.com/recipes/sauteed_spinach_with_garlic_and_lemon/
+2026-01-29 12:54:40,335 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/sauteed_spinach_with_garlic_and_lemon/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Processing: https://www.simplyrecipes.com/recipes/spaghetti_alla_carbonara/
+2026-01-29 12:54:40,335 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/spaghetti_alla_carbonara/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Processing: https://www.twopeasandtheirpod.com/recipes/
+2026-01-29 12:54:40,335 - ERROR - Failed to process https://www.twopeasandtheirpod.com/recipes/: scrape_me() got an unexpected keyword argument 'wild_mode'
+2026-01-29 12:54:40,335 - INFO - Extraction complete. 0 recipes saved to recipes.json.
+2026-01-29 12:55:16,238 - INFO - Found 48 URLs to process.
+2026-01-29 12:55:16,238 - INFO - Processing: https://pinchofyum.com
+2026-01-29 12:55:17,949 - ERROR - Failed to process https://pinchofyum.com: recipe-scrapers (15.11.0) exception: No Recipe Schema found at https://pinchofyum.com.
+2026-01-29 12:55:17,949 - INFO - Processing: https://pinchofyum.com/category/making-money-from-a-food-blog
+2026-01-29 12:55:19,410 - ERROR - Failed to process https://pinchofyum.com/category/making-money-from-a-food-blog: recipe-scrapers (15.11.0) exception: No Recipe Schema found at https://pinchofyum.com/category/making-money-from-a-food-blog.
+2026-01-29 12:55:19,410 - INFO - Processing: https://pinchofyum.com/chicken-recipes-to-make-on-repeat
+2026-01-29 12:55:21,041 - ERROR - Failed to process https://pinchofyum.com/chicken-recipes-to-make-on-repeat: recipe-scrapers (15.11.0) exception: No Recipe Schema found at https://pinchofyum.com/chicken-recipes-to-make-on-repeat.
+2026-01-29 12:55:21,041 - INFO - Processing: https://pinchofyum.com/chipotle-salmon-with-orange-salsa-and-aji-verde
+2026-01-29 12:55:22,948 - INFO - Successfully extracted: Chipotle Salmon with Orange Salsa and Aji Verde
+2026-01-29 12:55:22,949 - INFO - Processing: https://pinchofyum.com/creamy-chicken-and-gnocchi
+2026-01-29 12:55:26,354 - INFO - Successfully extracted: Creamy Chicken and Gnocchi
+2026-01-29 12:55:26,354 - INFO - Processing: https://pinchofyum.com/everything-you-need-to-know-about-sugar-free-january
+2026-01-29 12:55:27,706 - ERROR - Failed to process https://pinchofyum.com/everything-you-need-to-know-about-sugar-free-january: recipe-scrapers (15.11.0) exception: No Recipe Schema found at https://pinchofyum.com/everything-you-need-to-know-about-sugar-free-january.
+2026-01-29 12:55:27,707 - INFO - Processing: https://pinchofyum.com/focaccia-grinder-sandwich
+2026-01-29 12:55:28,290 - INFO - Successfully extracted: Focaccia Grinder Sandwich
+2026-01-29 12:55:28,290 - INFO - Processing: https://pinchofyum.com/freezer-meals
+2026-01-29 12:55:28,921 - ERROR - Failed to process https://pinchofyum.com/freezer-meals: recipe-scrapers (15.11.0) exception: No Recipe Schema found at https://pinchofyum.com/freezer-meals.
+2026-01-29 12:55:28,922 - INFO - Processing: https://pinchofyum.com/marry-me-chickpeas-and-orzo
+2026-01-29 12:55:29,443 - INFO - Successfully extracted: Marry Me Chickpeas and Orzo
+2026-01-29 12:55:29,443 - INFO - Processing: https://pinchofyum.com/media-mentions
+2026-01-29 12:55:30,294 - ERROR - Failed to process https://pinchofyum.com/media-mentions: recipe-scrapers (15.11.0) exception: No Recipe Schema found at https://pinchofyum.com/media-mentions.
+2026-01-29 12:55:30,294 - INFO - Processing: https://pinchofyum.com/miso-peanut-ramen-bowls
+2026-01-29 12:55:30,591 - INFO - Successfully extracted: Miso Peanut Ramen Bowls
+2026-01-29 12:55:30,591 - INFO - Processing: https://pinchofyum.com/privacy-policy
+2026-01-29 12:55:31,092 - ERROR - Failed to process https://pinchofyum.com/privacy-policy: recipe-scrapers (15.11.0) exception: No Recipe Schema found at https://pinchofyum.com/privacy-policy.
+2026-01-29 12:55:31,092 - INFO - Processing: https://pinchofyum.com/recipes
+2026-01-29 12:55:31,287 - ERROR - Failed to process https://pinchofyum.com/recipes: recipe-scrapers (15.11.0) exception: No Recipe Schema found at https://pinchofyum.com/recipes.
+2026-01-29 12:55:31,287 - INFO - Processing: https://pinchofyum.com/resources
+2026-01-29 12:55:31,770 - ERROR - Failed to process https://pinchofyum.com/resources: recipe-scrapers (15.11.0) exception: No Recipe Schema found at https://pinchofyum.com/resources.
+2026-01-29 12:55:31,770 - INFO - Processing: https://pinchofyum.com/sheet-pan-breakfast-burritos-with-creamy-chipotle-sauce
+2026-01-29 12:55:31,964 - INFO - Successfully extracted: Sheet Pan Breakfast Burritos with Creamy Chipotle Sauce
+2026-01-29 12:55:31,964 - INFO - Processing: https://pinchofyum.com/slow-cooker-chicken-pot-pie-soup
+2026-01-29 12:55:32,200 - INFO - Successfully extracted: Slow Cooker Chicken Pot Pie Soup
+2026-01-29 12:55:32,200 - INFO - Processing: https://pinchofyum.com/sponsored-content
+2026-01-29 12:55:32,754 - ERROR - Failed to process https://pinchofyum.com/sponsored-content: recipe-scrapers (15.11.0) exception: No Recipe Schema found at https://pinchofyum.com/sponsored-content.
+2026-01-29 12:55:32,754 - INFO - Processing: https://pinchofyum.com/sticky-beef-and-peanut-noodles
+2026-01-29 12:55:33,038 - INFO - Successfully extracted: Caramelized Beef and Peanut Noodles
+2026-01-29 12:55:33,038 - INFO - Processing: https://pinchofyum.com/teriyaki-tofu-bowls-with-kimchi-mayo
+2026-01-29 12:55:33,955 - INFO - Successfully extracted: Teriyaki Tofu Bowls with Kimchi Mayo
+2026-01-29 12:55:33,955 - INFO - Processing: https://pinchofyum.com/terms-of-service
+2026-01-29 12:55:34,701 - ERROR - Failed to process https://pinchofyum.com/terms-of-service: recipe-scrapers (15.11.0) exception: No Recipe Schema found at https://pinchofyum.com/terms-of-service.
+2026-01-29 12:55:34,701 - INFO - Processing: https://pinchofyum.com/the-best-avocado-egg-salad
+2026-01-29 12:55:34,939 - INFO - Successfully extracted: The Best Avocado Egg Salad
+2026-01-29 12:55:34,939 - INFO - Processing: https://pinchofyum.com/the-best-soft-chocolate-chip-cookies
+2026-01-29 12:55:35,291 - INFO - Successfully extracted: The Best Soft Chocolate Chip Cookies
+2026-01-29 12:55:35,291 - INFO - Processing: https://pinchofyum.com/trader-joes-chicken-shawarma-with-lemon-rice
+2026-01-29 12:55:35,576 - INFO - Successfully extracted: Chicken Shawarma with Lemon Rice
+2026-01-29 12:55:35,576 - INFO - Processing: https://pinchofyum.com/vegan-crunchwrap
+2026-01-29 12:55:36,893 - INFO - Successfully extracted: Vegan Crunchwrap Supreme
+2026-01-29 12:55:36,893 - INFO - Processing: https://pinchofyum.com/zuppa-toscana
+2026-01-29 12:55:39,499 - INFO - Successfully extracted: Zuppa Toscana
+2026-01-29 12:55:39,499 - INFO - Processing: https://www.allrecipes.com/recipe/151595/campbells-green-bean-casserole/
+2026-01-29 12:55:42,007 - INFO - Successfully extracted: Campbell's Green Bean Casserole
+2026-01-29 12:55:42,007 - INFO - Processing: https://www.allrecipes.com/recipe/25199/sweet-and-sour-meatballs-suan-tien-niu-jou-po-lo-la-tzu/
+2026-01-29 12:55:42,554 - INFO - Successfully extracted: Sweet and Sour Meatballs (Suan T'ien Niu Jou Po Lo La Tzu)
+2026-01-29 12:55:42,554 - INFO - Processing: https://www.simplyrecipes.com/recipes/baked_ziti/
+2026-01-29 12:55:43,106 - INFO - Successfully extracted: Baked Ziti
+2026-01-29 12:55:43,106 - INFO - Processing: https://www.simplyrecipes.com/recipes/banana_bread/
+2026-01-29 12:55:43,559 - INFO - Successfully extracted: Banana Bread
+2026-01-29 12:55:43,559 - INFO - Processing: https://www.simplyrecipes.com/recipes/best_lasagna_recipe/
+2026-01-29 12:55:44,309 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/best_lasagna_recipe/: HTTP Error 404: Not Found
+2026-01-29 12:55:44,309 - INFO - Processing: https://www.simplyrecipes.com/recipes/cilantro_lime_rice/
+2026-01-29 12:55:44,876 - INFO - Successfully extracted: Cilantro Lime Rice
+2026-01-29 12:55:44,876 - INFO - Processing: https://www.simplyrecipes.com/recipes/classic_roast_beef/
+2026-01-29 12:55:46,245 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/classic_roast_beef/: HTTP Error 404: Not Found
+2026-01-29 12:55:46,246 - INFO - Processing: https://www.simplyrecipes.com/recipes/easy_shepherds_pie/
+2026-01-29 12:55:47,219 - INFO - Successfully extracted: Easy Shepherd's Pie
+2026-01-29 12:55:47,219 - INFO - Processing: https://www.simplyrecipes.com/recipes/french_onion_soup/
+2026-01-29 12:55:47,832 - INFO - Successfully extracted: French Onion Soup
+2026-01-29 12:55:47,832 - INFO - Processing: https://www.simplyrecipes.com/recipes/grilled_mexican_street_corn_elotes/
+2026-01-29 12:55:48,864 - INFO - Successfully extracted: Grilled Mexican Street Corn (Elotes)
+2026-01-29 12:55:48,864 - INFO - Processing: https://www.simplyrecipes.com/recipes/homemade_pizza/
+2026-01-29 12:55:50,285 - INFO - Successfully extracted: Homemade Pizza & Pizza Dough
+2026-01-29 12:55:50,285 - INFO - Processing: https://www.simplyrecipes.com/recipes/how_to_make_an_omelette/
+2026-01-29 12:55:50,929 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/how_to_make_an_omelette/: HTTP Error 404: Not Found
+2026-01-29 12:55:50,929 - INFO - Processing: https://www.simplyrecipes.com/recipes/nachos/
+2026-01-29 12:55:51,310 - INFO - Successfully extracted: The Best Nachos
+2026-01-29 12:55:51,310 - INFO - Processing: https://www.simplyrecipes.com/recipes/oven_baked_sweet_potato_fries/
+2026-01-29 12:55:51,723 - INFO - Successfully extracted: Oven Baked Sweet Potato Fries
+2026-01-29 12:55:51,723 - INFO - Processing: https://www.simplyrecipes.com/recipes/perfect_guacamole/
+2026-01-29 12:55:52,155 - INFO - Successfully extracted: How to Make the Best Guacamole
+2026-01-29 12:55:52,155 - INFO - Processing: https://www.simplyrecipes.com/recipes/perfect_lemonade/
+2026-01-29 12:55:53,269 - INFO - Successfully extracted: Perfect Lemonade
+2026-01-29 12:55:53,269 - INFO - Processing: https://www.simplyrecipes.com/recipes/perfect_mashed_potatoes/
+2026-01-29 12:55:54,921 - INFO - Successfully extracted: Perfect Mashed Potatoes
+2026-01-29 12:55:54,921 - INFO - Processing: https://www.simplyrecipes.com/recipes/perfect_popcorn/
+2026-01-29 12:55:55,839 - INFO - Successfully extracted: Perfect Popcorn
+2026-01-29 12:55:55,839 - INFO - Processing: https://www.simplyrecipes.com/recipes/prime_rib_roast/
+2026-01-29 12:55:57,066 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/prime_rib_roast/: HTTP Error 404: Not Found
+2026-01-29 12:55:57,066 - INFO - Processing: https://www.simplyrecipes.com/recipes/roasted_broccoli_with_parmesan/
+2026-01-29 12:55:57,351 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/roasted_broccoli_with_parmesan/: HTTP Error 404: Not Found
+2026-01-29 12:55:57,351 - INFO - Processing: https://www.simplyrecipes.com/recipes/sauteed_spinach_with_garlic_and_lemon/
+2026-01-29 12:55:57,760 - ERROR - Failed to process https://www.simplyrecipes.com/recipes/sauteed_spinach_with_garlic_and_lemon/: HTTP Error 404: Not Found
+2026-01-29 12:55:57,760 - INFO - Processing: https://www.simplyrecipes.com/recipes/spaghetti_alla_carbonara/
+2026-01-29 12:55:58,036 - INFO - Successfully extracted: Pasta Carbonara
+2026-01-29 12:55:58,037 - INFO - Processing: https://www.twopeasandtheirpod.com/recipes/
+2026-01-29 12:55:58,652 - ERROR - Failed to process https://www.twopeasandtheirpod.com/recipes/: recipe-scrapers (15.11.0) exception: No Recipe Schema found at https://www.twopeasandtheirpod.com/recipes/.
+2026-01-29 12:55:58,655 - INFO - Extraction complete. 30 recipes saved to recipes.json.

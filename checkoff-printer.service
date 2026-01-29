@@ -1,0 +1,14 @@
+[Unit]
+Description=Checkoff Printer Web Service
+After=network.target
+
+[Service]
+User=pi
+WorkingDirectory=/home/pi/checkoff-printer
+Environment="PRINTER_MODE=usb"
+# Adjust path to venv python
+ExecStart=/home/pi/checkoff-printer/venv/bin/python app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

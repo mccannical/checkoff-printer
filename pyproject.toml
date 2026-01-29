@@ -1,0 +1,31 @@
+[project]
+name = "checkoff-printer"
+version = "0.1.0"
+description = "Thermal printer application for recipes and todo lists"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "flask",
+    "python-escpos",
+    "beautifulsoup4",
+    "requests",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "ruff",
+    "ty",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"] # Pycodestyle, Pyflakes, Isort
+
+[tool.ruff.lint.isort]
+known-first-party = ["app", "printer_service", "formatters"]
+
+[tool.ty]
+# Configuration for ty (if applicable, though often it runs mostly zero-config)

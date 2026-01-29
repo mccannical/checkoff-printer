@@ -1,0 +1,5 @@
+flask
+python-escpos
+beautifulsoup4
+requests
+recipe-scrapers

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - PRINTER_MODE=mock # Default to mock for safety. Change to 'usb' for real hardware.
+    # USB Passthrough for Linux/Pi
+    # This might need adjustment depending on the exact OS and Docker version
+    # "priviliged: true" is often the easiest way for hardware access on Pi
+    privileged: true
+    devices:
+      - "/dev/bus/usb:/dev/bus/usb"
+    restart: unless-stopped

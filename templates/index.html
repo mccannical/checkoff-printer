@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Checkoff Printer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <header>
+            <h1>Checkoff Printer</h1>
+            <p class="subtitle">Thermal Printing Station</p>
+        </header>
+
+        <nav class="nav-tabs">
+            <div class="nav-tab active" data-target="tab-recipe">Recipe</div>
+            <div class="nav-tab" data-target="tab-todo">To Do</div>
+        </nav>
+
+        <div id="status-message"></div>
+
+        <!-- RECIPE SECTION -->
+        <section id="tab-recipe" class="section active">
+
+            <!-- URL Card -->
+            <div class="card" style="margin-bottom: 1rem;">
+                <form id="recipe-url-form">
+                    <div class="form-group">
+                        <label for="recipe-url">From URL</label>
+                        <input type="url" id="recipe-url" name="url" placeholder="Paste recipe link..." required>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn-secondary"
+                            onclick="handlePreview('recipe-url-form')">Preview</button>
+                        <button type="submit" class="btn-primary">Print from Web</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Manual Text Card -->
+            <div class="card">
+                <form id="recipe-text-form">
+                    <div class="form-group">
+                        <label for="recipe-title">Manual Entry - Title</label>
+                        <input type="text" id="recipe-title" name="title" placeholder="Recipe Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipe-text">Ingredients & Instructions</label>
+                        <textarea id="recipe-text" name="text" placeholder="Paste text here..." required></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn-secondary"
+                            onclick="handlePreview('recipe-text-form')">Preview</button>
+                        <button type="submit" class="btn-primary">Print Text</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- TODO SECTION -->
+        <section id="tab-todo" class="section">
+            <div class="card">
+                <form id="todo-form">
+                    <div class="form-group">
+                        <label for="todo-title">List Title</label>
+                        <input type="text" id="todo-title" name="title" value="To Do List">
+                    </div>
+                    <div class="form-group">
+                        <label for="todo-items">Items (One per line)</label>
+                        <textarea id="todo-items" name="items" placeholder="Buy Milk&#10;Walk Dog&#10;Fix Printer"
+                            required></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn-secondary"
+                            onclick="handlePreview('todo-form')">Preview</button>
+                        <button type="submit" class="btn-primary">Print Checklist</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Print Preview</h2>
+            <div class="preview-paper">
+                <pre id="preview-content"></pre>
+            </div>
+            <div class="modal-actions">
+                <button id="confirm-print" class="btn-primary">Print Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+
+</html>
