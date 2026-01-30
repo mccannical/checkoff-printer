@@ -38,11 +38,42 @@ class PrinterService:
         else:
             self.printer = Dummy()
 
+    def _normalize_fractions(self, text):
+        """Replaces Unicode fraction characters with their ASCII counterparts."""
+        if not text:
+            return ""
+
+        fraction_map = {
+            "\u00bd": "1/2",
+            "\u00bc": "1/4",
+            "\u00be": "3/4",
+            "\u2150": "1/7",
+            "\u2151": "1/9",
+            "\u2152": "1/10",
+            "\u2153": "1/3",
+            "\u2154": "2/3",
+            "\u2155": "1/5",
+            "\u2156": "2/5",
+            "\u2157": "3/5",
+            "\u2158": "4/5",
+            "\u2159": "1/6",
+            "\u215a": "5/6",
+            "\u215b": "1/8",
+            "\u215c": "3/8",
+            "\u215d": "5/8",
+            "\u215e": "7/8",
+        }
+
+        for unicode_frac, ascii_frac in fraction_map.items():
+            text = text.replace(unicode_frac, ascii_frac)
+        return text
+
     def _wrap_text(self, text, width=42, indent=""):
         """Wraps text to the specified width, preserving existing newlines."""
         if not text:
             return ""
 
+        text = self._normalize_fractions(text)
         wrapped_lines = []
         for line in text.splitlines():
             if not line.strip():
@@ -130,10 +161,10 @@ class PrinterService:
 
     def _generate_todo_text(self, title, items):
         out = []
-        out.append(f"{title}")
+        out.append(self._wrap_text(title))
         out.append("-" * 42)
         for item in items:
-            out.append(f"[ ] {item}")
+            out.append(self._wrap_text(f"[ ] {item}"))
         out.append("\n")
         return "\n".join(out)
 
@@ -145,7 +176,7 @@ class PrinterService:
         self.printer.hw("init")
 
         self.printer.set(align="center", double_height=False, bold=True, font="b")
-        self.printer.text(f"{title}\n")
+        self.printer.text(self._wrap_text(title) + "\n")
         self.printer.set(
             align="left",
             double_height=False,
@@ -156,7 +187,7 @@ class PrinterService:
         self.printer.text("-" * 42 + "\n")
 
         for item in items:
-            self.printer.text(f"[ ] {item}\n")
+            self.printer.text(self._wrap_text(f"[ ] {item}") + "\n")
 
         self.printer.text("\n\n")
         self.printer.cut()
