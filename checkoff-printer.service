@@ -3,7 +3,7 @@ Description=Checkoff Printer Web Service
 After=network.target
 
 [Service]
-User=printer
+User=root
 WorkingDirectory=/home/printer/checkoff-printer
 Environment="PRINTER_MODE=usb"
 # Use uv to run the application from the WorkingDirectory
