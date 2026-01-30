@@ -10,9 +10,18 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          path: deploy-temp
+
+      - name: Sync to Live Folder
+        run: |
+          # Sync everything except the runner itself and the logs
+          rsync -av --delete --exclude='actions-runner/' --exclude='logs/' --exclude='.git/' deploy-temp/ /home/printer/checkoff-printer/
 
       - name: Sync Dependencies
-        run: /home/printer/.local/bin/uv sync
+        run: |
+          cd /home/printer/checkoff-printer
+          /home/printer/.local/bin/uv sync
 
       - name: Restart Service
         run: sudo systemctl restart checkoff-printer
