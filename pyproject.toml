@@ -9,6 +9,8 @@ dependencies = [
     "python-escpos",
     "beautifulsoup4",
     "requests",
+    "pyusb",
+    "recipe-scrapers",
 ]
 
 [tool.uv]
