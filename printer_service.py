@@ -87,7 +87,11 @@ class PrinterService:
 
         # Title
         self.printer.set(
-            align="center", double_height=True, double_width=True, bold=False, font="b"
+            align="center",
+            double_height=False,
+            double_width=False,
+            bold=True,
+            font="b",
         )
         # We might not want to hard wrap the title if we trust the printer's flow,
         # but 42 chars doubled is 21 chars, so it might overflow.
@@ -96,14 +100,18 @@ class PrinterService:
             self._wrap_text(title, width=21) + "\n"
         )  # Double width = half capacity
         self.printer.set(
-            align="left", double_height=False, double_width=False, bold=False
+            align="left",
+            double_height=False,
+            double_width=False,
+            bold=False,
+            font="b",
         )
         self.printer.text("-" * 42 + "\n")  # 42 chars is approx width for 80mm
 
         # Ingredients
-        self.printer.set(bold=True)
+        self.printer.set(bold=True, font="b")
         self.printer.text("INGREDIENTS\n")
-        self.printer.set(bold=False)
+        self.printer.set(bold=False, font="b")
         for ing in ingredients:
             # indent slightly for checkbox look
             # The preview used 4 spaces, we can do similar or just plain
@@ -113,9 +121,9 @@ class PrinterService:
         self.printer.text("\n")
 
         # Instructions
-        self.printer.set(bold=True)
+        self.printer.set(bold=True, font="b")
         self.printer.text("INSTRUCTIONS\n")
-        self.printer.set(bold=False)
+        self.printer.set(bold=False, font="b")
         self.printer.text(self._wrap_text(instructions) + "\n\n")
 
         self.printer.cut()
@@ -136,10 +144,14 @@ class PrinterService:
         """Formats and prints a todo list"""
         self.printer.hw("init")
 
-        self.printer.set(align="center", double_height=True, bold=True)
+        self.printer.set(align="center", double_height=False, bold=True, font="b")
         self.printer.text(f"{title}\n")
         self.printer.set(
-            align="left", double_height=False, double_width=False, bold=False
+            align="left",
+            double_height=False,
+            double_width=False,
+            bold=False,
+            font="b",
         )
         self.printer.text("-" * 42 + "\n")
 
