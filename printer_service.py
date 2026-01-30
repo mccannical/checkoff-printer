@@ -7,6 +7,7 @@ from escpos.printer import Dummy, Usb
 
 class PrinterService:
     def __init__(self, mode="mock", usb_args=None):
+        print(f"Initializing PrinterService in {mode.upper()} mode")
         self.mode = mode
         self.printer: Any = None
 
@@ -86,7 +87,7 @@ class PrinterService:
 
         # Title
         self.printer.set(
-            align="center", double_height=True, double_width=True, bold=True
+            align="center", double_height=True, double_width=True, bold=False, font="b"
         )
         # We might not want to hard wrap the title if we trust the printer's flow,
         # but 42 chars doubled is 21 chars, so it might overflow.
