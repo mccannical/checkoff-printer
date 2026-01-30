@@ -6,8 +6,8 @@ After=network.target
 User=printer
 WorkingDirectory=/home/printer/checkoff-printer
 Environment="PRINTER_MODE=usb"
-# Adjust path to venv python
-ExecStart=/home/printer/checkoff-printer/venv/bin/python app.py
+# Adjust path to venv python (check if it's .venv or venv)
+ExecStart=/home/printer/checkoff-printer/venv/bin/python /home/printer/checkoff-printer/app.py
 Restart=always
 
 [Install]
