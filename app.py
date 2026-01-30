@@ -52,6 +52,7 @@ def print_recipe():
             parsed_data["title"],
             parsed_data["ingredients"],
             parsed_data["instructions"],
+            url=data.get("url"),
         )
         return jsonify(
             {"status": "success", "message": f"Printed '{parsed_data['title']}'"}

@@ -1,6 +1,8 @@
 from typing import Any
 import os
 import textwrap
+import time
+import re
 
 from escpos.printer import Dummy, Usb
 
@@ -37,6 +39,25 @@ class PrinterService:
                 self.printer = Dummy()
         else:
             self.printer = Dummy()
+
+    def _save_to_log(self, title, content, url=None):
+        """Saves the printed content to a log file."""
+        if not os.path.exists("logs"):
+            os.makedirs("logs")
+
+        # Create a filename-safe version of the title
+        slug = re.sub(r"[^\w\s-]", "", title).strip().lower()
+        slug = re.sub(r"[-\s]+", "-", slug)
+
+        epoch = int(time.time())
+        filename = f"logs/{slug}-{epoch}.txt"
+
+        with open(filename, "w") as f:
+            if url:
+                f.write(f"URL: {url}\n\n")
+            f.write(content)
+
+        print(f"Logged print to {filename}")
 
     def _normalize_fractions(self, text):
         """Replaces Unicode fraction characters with their ASCII counterparts."""
@@ -112,31 +133,37 @@ class PrinterService:
     def get_recipe_preview(self, title, ingredients, instructions):
         return self._generate_recipe_text(title, ingredients, instructions)
 
-    def print_recipe(self, title, ingredients, instructions):
+    def print_recipe(self, title, ingredients, instructions, url=None):
         """Formats and prints a recipe"""
-        self.printer.hw("init")
+        # Log the print
+        log_content = self._generate_recipe_text(title, ingredients, instructions)
+        self._save_to_log(title, log_content, url=url)
 
-        # Title
-        self.printer.set(
-            align="center",
-            double_height=False,
-            double_width=False,
-            bold=True,
-            font="b",
-        )
+        if hasattr(self.printer, "hw"):
+            self.printer.hw("init")
+
+        if hasattr(self.printer, "set"):
+            self.printer.set(
+                align="center",
+                double_height=False,
+                double_width=False,
+                bold=True,
+                font="b",
+            )
         # We might not want to hard wrap the title if we trust the printer's flow,
         # but 42 chars doubled is 21 chars, so it might overflow.
         # For safety/consistency with preview:
         self.printer.text(
             self._wrap_text(title, width=21) + "\n"
         )  # Double width = half capacity
-        self.printer.set(
-            align="left",
-            double_height=False,
-            double_width=False,
-            bold=False,
-            font="b",
-        )
+        if hasattr(self.printer, "set"):
+            self.printer.set(
+                align="left",
+                double_height=False,
+                double_width=False,
+                bold=False,
+                font="b",
+            )
         self.printer.text("-" * 42 + "\n")  # 42 chars is approx width for 80mm
 
         # Ingredients
@@ -152,19 +179,32 @@ class PrinterService:
         self.printer.text("\n")
 
         # Instructions
-        self.printer.set(bold=True, font="b")
+        if hasattr(self.printer, "set"):
+            self.printer.set(bold=True, font="b")
         self.printer.text("INSTRUCTIONS\n")
-        self.printer.set(bold=False, font="b")
+        if hasattr(self.printer, "set"):
+            self.printer.set(bold=False, font="b")
         self.printer.text(self._wrap_text(instructions) + "\n\n")
 
-        self.printer.cut()
+        if hasattr(self.printer, "cut"):
+            self.printer.cut()
 
     def _generate_todo_text(self, title, items):
         out = []
         out.append(self._wrap_text(title))
         out.append("-" * 42)
         for item in items:
-            out.append(self._wrap_text(f"[ ] {item}"))
+            text = item["text"]
+            type = item["type"]
+            if type == "header":
+                out.append(f"\n{self._normalize_fractions(text).upper()}")
+                out.append("-" * len(text))
+            elif type == "task":
+                out.append(self._wrap_text(f"[ ] {text}"))
+            elif type == "bold":
+                out.append(self._wrap_text(text).upper())
+            else:
+                out.append(self._wrap_text(text))
         out.append("\n")
         return "\n".join(out)
 
@@ -173,27 +213,52 @@ class PrinterService:
 
     def print_todo(self, title, items):
         """Formats and prints a todo list"""
-        self.printer.hw("init")
+        # Log the print
+        log_content = self._generate_todo_text(title, items)
+        self._save_to_log(title, log_content)
 
-        self.printer.set(align="center", double_height=False, bold=True, font="b")
+        if hasattr(self.printer, "hw"):
+            self.printer.hw("init")
+
+        if hasattr(self.printer, "set"):
+            self.printer.set(align="center", double_height=False, bold=True, font="b")
         self.printer.text(self._wrap_text(title) + "\n")
-        self.printer.set(
-            align="left",
-            double_height=False,
-            double_width=False,
-            bold=False,
-            font="b",
-        )
+        if hasattr(self.printer, "set"):
+            self.printer.set(
+                align="left",
+                double_height=False,
+                double_width=False,
+                bold=False,
+                font="b",
+            )
         self.printer.text("-" * 42 + "\n")
 
         for item in items:
-            self.printer.text(self._wrap_text(f"[ ] {item}") + "\n")
+            text = item["text"]
+            type = item["type"]
+
+            if type == "header":
+                if hasattr(self.printer, "set"):
+                    self.printer.set(align="center", bold=True, font="b")
+                self.printer.text("\n" + self._wrap_text(text) + "\n")
+                if hasattr(self.printer, "set"):
+                    self.printer.set(align="left", bold=False, font="b")
+            elif type == "task":
+                self.printer.text(self._wrap_text(f"[ ] {text}") + "\n")
+            elif type == "bold":
+                if hasattr(self.printer, "set"):
+                    self.printer.set(bold=True, font="b")
+                self.printer.text(self._wrap_text(text) + "\n")
+                if hasattr(self.printer, "set"):
+                    self.printer.set(bold=False, font="b")
+            else:
+                self.printer.text(self._wrap_text(text) + "\n")
 
         self.printer.text("\n\n")
-        self.printer.cut()
+        if hasattr(self.printer, "cut"):
+            self.printer.cut()
 
     def get_dummy_output(self):
         """Returns the output if in Dummy mode"""
         if isinstance(self.printer, Dummy):
             return self.printer.output
-        return b""
