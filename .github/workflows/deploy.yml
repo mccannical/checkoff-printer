@@ -15,8 +15,14 @@ jobs:
 
       - name: Sync to Live Folder
         run: |
-          # Sync everything except the runner itself and the logs
-          rsync -av --delete --exclude='actions-runner/' --exclude='logs/' --exclude='.git/' deploy-temp/ /home/printer/checkoff-printer/
+          # Sync everything except the runner itself, logs, and runtime artifacts
+          rsync -av --delete \
+            --exclude='actions-runner/' \
+            --exclude='logs/' \
+            --exclude='.git/' \
+            --exclude='**/__pycache__/' \
+            --exclude='.venv/' \
+            deploy-temp/ /home/printer/checkoff-printer/
 
       - name: Sync Dependencies
         run: |
