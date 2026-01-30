@@ -6,8 +6,8 @@ After=network.target
 User=printer
 WorkingDirectory=/home/printer/checkoff-printer
 Environment="PRINTER_MODE=usb"
-# Use uv to run the application
-ExecStart=/home/printer/.local/bin/uv run --project /home/printer/checkoff-printer /home/printer/checkoff-printer/app.py
+# Use uv to run the application from the WorkingDirectory
+ExecStart=/home/printer/.local/bin/uv run app.py
 Restart=always
 
 [Install]
