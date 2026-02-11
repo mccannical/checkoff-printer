@@ -8,10 +8,12 @@ from escpos.printer import Dummy, Usb
 
 
 class PrinterService:
-    def __init__(self, mode="mock", usb_args=None):
+    def __init__(self, mode="mock", usb_args=None, mqtt_config=None):
         print(f"Initializing PrinterService in {mode.upper()} mode")
         self.mode = mode
         self.printer: Any = None
+        self.mqtt_config = mqtt_config
+        self.target_printer = None
 
         # Epson TM-H6000IV Vendor/Product IDs (Standard Epson IDs, user might need to adjust)
         # Default is usually Vendor: 0x04b8 (Seiko Epson)
@@ -23,6 +25,9 @@ class PrinterService:
         }
 
         self._connect()
+
+    def set_target(self, printer_name: str):
+        self.target_printer = printer_name
 
     def _connect(self):
         if self.mode == "usb":
@@ -37,8 +42,23 @@ class PrinterService:
             except Exception as e:
                 print(f"Failed to connect to USB Printer: {e}. Falling back to Dummy.")
                 self.printer = Dummy()
+        elif self.mode == "mqtt":
+            from mqtt_printer import MqttPrinter
+            self.mqtt = MqttPrinter(
+                host=self.mqtt_config["host"],
+                port=self.mqtt_config["port"],
+                user=self.mqtt_config["user"],
+                password=self.mqtt_config["password"],
+            )
+            self.printer = Dummy()
         else:
             self.printer = Dummy()
+
+    def _flush_to_mqtt(self):
+        if self.mode == "mqtt" and self.target_printer:
+            data = self.printer.output
+            self.mqtt.publish(self.target_printer, data)
+            self.printer = Dummy()  # reset for next job
 
     def _save_to_log(self, title, content, url=None):
         """Saves the printed content to a log file."""
@@ -113,6 +133,7 @@ class PrinterService:
         self.printer.text(text)
         if hasattr(self.printer, "cut"):
             self.printer.cut()
+        self._flush_to_mqtt()
 
     def _generate_recipe_text(self, title, ingredients, instructions):
         """Generates the text content for a recipe"""
@@ -188,6 +209,7 @@ class PrinterService:
 
         if hasattr(self.printer, "cut"):
             self.printer.cut()
+        self._flush_to_mqtt()
 
     def _generate_todo_text(self, title, items):
         out = []
@@ -195,13 +217,17 @@ class PrinterService:
         out.append("-" * 42)
         for item in items:
             text = item["text"]
-            type = item["type"]
-            if type == "header":
+            itype = item["type"]
+            if itype == "header":
                 out.append(f"\n{self._normalize_fractions(text).upper()}")
                 out.append("-" * len(text))
-            elif type == "task":
+            elif itype == "header2":
+                out.append(f"\n{self._normalize_fractions(text).upper()}")
+            elif itype == "header3":
+                out.append(f"\n{self._normalize_fractions(text)}")
+            elif itype == "task":
                 out.append(self._wrap_text(f"[ ] {text}"))
-            elif type == "bold":
+            elif itype == "bold":
                 out.append(self._wrap_text(text).upper())
             else:
                 out.append(self._wrap_text(text))
@@ -235,17 +261,29 @@ class PrinterService:
 
         for item in items:
             text = item["text"]
-            type = item["type"]
+            itype = item["type"]
 
-            if type == "header":
+            if itype == "header":
                 if hasattr(self.printer, "set"):
                     self.printer.set(align="center", bold=True, font="b")
                 self.printer.text("\n" + self._wrap_text(text) + "\n")
                 if hasattr(self.printer, "set"):
                     self.printer.set(align="left", bold=False, font="b")
-            elif type == "task":
+            elif itype == "header2":
+                if hasattr(self.printer, "set"):
+                    self.printer.set(align="center", bold=True, font="b")
+                self.printer.text("\n" + self._wrap_text(text) + "\n")
+                if hasattr(self.printer, "set"):
+                    self.printer.set(align="left", bold=False, font="b")
+            elif itype == "header3":
+                if hasattr(self.printer, "set"):
+                    self.printer.set(bold=True, font="b")
+                self.printer.text("\n" + self._wrap_text(text) + "\n")
+                if hasattr(self.printer, "set"):
+                    self.printer.set(bold=False, font="b")
+            elif itype == "task":
                 self.printer.text(self._wrap_text(f"[ ] {text}") + "\n")
-            elif type == "bold":
+            elif itype == "bold":
                 if hasattr(self.printer, "set"):
                     self.printer.set(bold=True, font="b")
                 self.printer.text(self._wrap_text(text) + "\n")
@@ -257,6 +295,7 @@ class PrinterService:
         self.printer.text("\n\n")
         if hasattr(self.printer, "cut"):
             self.printer.cut()
+        self._flush_to_mqtt()
 
     def get_dummy_output(self):
         """Returns the output if in Dummy mode"""

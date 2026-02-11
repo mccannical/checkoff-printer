@@ -11,6 +11,7 @@ dependencies = [
     "requests",
     "pyusb",
     "recipe-scrapers",
+    "paho-mqtt",
 ]
 
 [tool.uv]

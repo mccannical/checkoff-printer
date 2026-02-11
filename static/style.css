@@ -283,3 +283,35 @@ button:disabled {
 .modal-actions {
     margin-top: 1rem;
 }
+
+/* Printer Selector */
+.printer-selector {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.printer-btn {
+    padding: 0.5rem 1.25rem;
+    border: 1px solid #333;
+    border-radius: 999px;
+    background: #1e1e1e;
+    color: #aaa;
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.printer-btn:hover {
+    border-color: #00e5ff;
+    color: #fff;
+}
+
+.printer-btn.active {
+    background: #00e5ff;
+    color: #121212;
+    border-color: #00e5ff;
+    font-weight: 600;
+}

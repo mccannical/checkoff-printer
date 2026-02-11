@@ -1,4 +1,32 @@
+let selectedPrinter = null;
+let printerMode = null;
+
 document.addEventListener('DOMContentLoaded', () => {
+
+    fetch('/api/printers')
+        .then(r => r.json())
+        .then(data => {
+            printerMode = data.mode;
+            if (data.mode === 'mqtt' && data.printers.length > 0) {
+                const selector = document.getElementById('printer-selector');
+                selector.style.display = 'flex';
+                data.printers.forEach((p, i) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'printer-btn' + (i === 0 ? ' active' : '');
+                    btn.textContent = p.name;
+                    btn.dataset.printerId = p.id;
+                    btn.addEventListener('click', () => {
+                        selector.querySelectorAll('.printer-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        selectedPrinter = p.id;
+                    });
+                    selector.appendChild(btn);
+                });
+                selectedPrinter = data.printers[0].id;
+            }
+        })
+        .catch(() => {});
+
     // Tab Switching
     const tabs = document.querySelectorAll('.nav-tab');
     const sections = document.querySelectorAll('.section');
@@ -73,6 +101,9 @@ async function handlePreview(formId) {
         const formData = new FormData(form);
         const dataMapper = form.dataMapper;
         const data = dataMapper(formData);
+        if (selectedPrinter) {
+            data.printer = selectedPrinter;
+        }
         data.preview = true; // Flag for preview
 
         const res = await fetch(form.dataset.endpoint, {
@@ -117,6 +148,9 @@ async function submitForm(formId) {
         const formData = new FormData(form);
         const dataMapper = form.dataMapper;
         const data = dataMapper(formData);
+        if (selectedPrinter) {
+            data.printer = selectedPrinter;
+        }
 
         const res = await fetch(form.dataset.endpoint, {
             method: 'POST',

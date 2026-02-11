@@ -6,6 +6,11 @@ After=network.target
 User=root
 WorkingDirectory=/home/printer/checkoff-printer
 Environment="PRINTER_MODE=usb"
+Environment=MQTT_BROKER_HOST=192.168.50.211
+Environment=MQTT_BROKER_PORT=1883
+Environment=MQTT_BROKER_USER=printer
+Environment=MQTT_BROKER_PASS=printer
+Environment=MQTT_PRINTERS=jesse-printer:Jesse,kitchen-huxley:Kitchen
 # Use uv to run the application from the WorkingDirectory
 ExecStart=/home/printer/.local/bin/uv run app.py
 Restart=always
