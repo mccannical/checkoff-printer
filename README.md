@@ -116,14 +116,77 @@ See `.env.example` for all available variables.
 
 ## API Documentation
 
--   `GET /api/printers`
-    -   Returns: `{ "printers": [{"id": "...", "name": "..."}], "mode": "mqtt" }`
--   `POST /api/print/recipe`
-    -   Body: `{ "mode": "url"|"text", "url": "...", "title": "...", "text": "...", "printer": "jesse-printer", "preview": boolean }`
--   `POST /api/print/todo`
-    -   Body: `{ "title": "...", "items": "# Header\n- item 1\n- item 2", "printer": "jesse-printer", "preview": boolean }`
+The API is available at `http://checkoff-printer/api/` (or `http://<pi-ip>/api/`). All POST endpoints accept JSON with `Content-Type: application/json`.
 
-## Todo Markdown Support
+### Endpoints
+
+-   `GET /api/printers` — List available printers
+-   `POST /api/print/recipe` — Print a recipe from URL or text
+-   `POST /api/print/todo` — Print a todo/checklist
+
+### Examples
+
+**Print a recipe from a URL:**
+```bash
+curl -X POST http://checkoff-printer/api/print/recipe \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "mode": "url",
+    "url": "https://www.allrecipes.com/recipe/24002/easy-meatloaf/",
+    "printer": "jesse-printer"
+  }'
+```
+
+**Print a recipe from raw text:**
+```bash
+curl -X POST http://checkoff-printer/api/print/recipe \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "mode": "text",
+    "title": "Scrambled Eggs",
+    "text": "3 eggs\n1 tbsp butter\nSalt and pepper\n\nWhisk eggs. Melt butter in pan over medium heat. Pour in eggs, stir gently until set.",
+    "printer": "kitchen-huxley"
+  }'
+```
+
+**Print a todo list:**
+```bash
+curl -X POST http://checkoff-printer/api/print/todo \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "title": "Grocery List",
+    "items": "# Produce\n- Bananas\n- Spinach\n- Avocados\n# Dairy\n- Milk\n- Butter\n# Meat\n- Chicken thighs",
+    "printer": "jesse-printer"
+  }'
+```
+
+**Preview before printing** (returns formatted text without sending to printer):
+```bash
+curl -X POST http://checkoff-printer/api/print/todo \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "title": "Morning Routine",
+    "items": "- [ ] Make bed\n- [ ] Stretch\n- [ ] Coffee",
+    "printer": "jesse-printer",
+    "preview": true
+  }'
+```
+
+### Printers
+
+| ID | Name | Location |
+|---|---|---|
+| `jesse-printer` | Jesse | Jesse's desk |
+| `kitchen-huxley` | Kitchen | Kitchen counter |
+
+Get the current list at any time:
+```bash
+curl http://checkoff-printer/api/printers
+```
+
+### Todo Markdown Syntax
+
+The `items` field in `/api/print/todo` supports markdown-like formatting:
 
 ```
 # Big Header        (bold, centered, underlined)
