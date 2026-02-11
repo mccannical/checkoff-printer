@@ -116,7 +116,7 @@ See `.env.example` for all available variables.
 
 ## API Documentation
 
-The API is available at `http://checkoff-printer/api/` (or `http://<pi-ip>/api/`). All POST endpoints accept JSON with `Content-Type: application/json`.
+The API is available at `http://printer.mccannical.com/api/` (or `http://<pi-ip>/api/`). All POST endpoints accept JSON with `Content-Type: application/json`.
 
 ### Endpoints
 
@@ -128,7 +128,7 @@ The API is available at `http://checkoff-printer/api/` (or `http://<pi-ip>/api/`
 
 **Print a recipe from a URL:**
 ```bash
-curl -X POST http://checkoff-printer/api/print/recipe \
+curl -X POST http://printer.mccannical.com/api/print/recipe \
   -H 'Content-Type: application/json' \
   -d '{
     "mode": "url",
@@ -139,7 +139,7 @@ curl -X POST http://checkoff-printer/api/print/recipe \
 
 **Print a recipe from raw text:**
 ```bash
-curl -X POST http://checkoff-printer/api/print/recipe \
+curl -X POST http://printer.mccannical.com/api/print/recipe \
   -H 'Content-Type: application/json' \
   -d '{
     "mode": "text",
@@ -151,7 +151,7 @@ curl -X POST http://checkoff-printer/api/print/recipe \
 
 **Print a todo list:**
 ```bash
-curl -X POST http://checkoff-printer/api/print/todo \
+curl -X POST http://printer.mccannical.com/api/print/todo \
   -H 'Content-Type: application/json' \
   -d '{
     "title": "Grocery List",
@@ -162,7 +162,7 @@ curl -X POST http://checkoff-printer/api/print/todo \
 
 **Preview before printing** (returns formatted text without sending to printer):
 ```bash
-curl -X POST http://checkoff-printer/api/print/todo \
+curl -X POST http://printer.mccannical.com/api/print/todo \
   -H 'Content-Type: application/json' \
   -d '{
     "title": "Morning Routine",
@@ -181,7 +181,7 @@ curl -X POST http://checkoff-printer/api/print/todo \
 
 Get the current list at any time:
 ```bash
-curl http://checkoff-printer/api/printers
+curl http://printer.mccannical.com/api/printers
 ```
 
 ### Todo Markdown Syntax
