@@ -1,15 +1,15 @@
-import pytest
-import sys
 from pathlib import Path
 
-# Add project root to path
-sys.path.append(str(Path(__file__).parent.parent))
+import pytest
 
 from formatters.recipe import RecipeFormatter
 
+# Repo root is two levels up from this file (backend/tests/ -> repo root)
+REPO_ROOT = Path(__file__).parent.parent.parent
+
 
 def load_urls():
-    with open("test-recipes.txt", "r") as f:
+    with open(REPO_ROOT / "data" / "test-recipes.txt", "r") as f:
         return [line.strip() for line in f if line.strip()]
 
 

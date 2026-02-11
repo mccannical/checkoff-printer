@@ -1,4 +1,6 @@
 logs/*
+backend/logs/*
+extraction_errors.log
 
 # ---- Python ----
 # Byte-compiled / optimized / DLL files

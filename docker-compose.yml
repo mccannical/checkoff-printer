@@ -1,21 +1,41 @@
-version: '3.8'
-
 services:
-  web:
-    build: .
+  frontend:
+    build: ./frontend
     ports:
-      - "8080:8080"
-    environment:
-      - PRINTER_MODE=mock  # Change to 'mqtt' for MQTT mode, 'usb' for direct USB
-      - MQTT_BROKER_HOST=192.168.50.211
-      - MQTT_BROKER_PORT=1883
-      - MQTT_BROKER_USER=printer
-      - MQTT_BROKER_PASS=printer
-      - MQTT_PRINTERS=jesse-printer:Jesse,kitchen-huxley:Kitchen
-    # USB Passthrough for Linux/Pi
-    # This might need adjustment depending on the exact OS and Docker version
-    # "priviliged: true" is often the easiest way for hardware access on Pi
-    privileged: true
-    devices:
-      - "/dev/bus/usb:/dev/bus/usb"
+      - "80:80"
+    depends_on:
+      - backend
     restart: unless-stopped
+
+  backend:
+    build: ./backend
+    expose:
+      - "8080"
+    environment:
+      - PRINTER_MODE=${PRINTER_MODE:-mock}
+      - MQTT_BROKER_HOST=${MQTT_BROKER_HOST:-mosquitto}
+      - MQTT_BROKER_PORT=${MQTT_BROKER_PORT:-1883}
+      - MQTT_BROKER_USER=${MQTT_BROKER_USER:-printer}
+      - MQTT_BROKER_PASS=${MQTT_BROKER_PASS:-printer}
+      - MQTT_PRINTERS=${MQTT_PRINTERS:-jesse-printer:Jesse,kitchen-huxley:Kitchen}
+    volumes:
+      - logs:/app/logs
+    depends_on:
+      - mosquitto
+    restart: unless-stopped
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    expose:
+      - "1883"
+    ports:
+      - "1883:1883"
+    volumes:
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log
+    restart: unless-stopped
+
+volumes:
+  logs:
+  mosquitto-data:
+  mosquitto-log:

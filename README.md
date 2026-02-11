@@ -17,8 +17,14 @@ Supports three modes: direct USB, mock (development), and MQTT (networked printe
 
 ```
                           ┌─────────────┐
-                          │  Flask App  │
-                          │  (any host) │
+                   :8080  │   nginx     │
+                   ------>│  (frontend) │
+                          └──────┬──────┘
+                                 │ proxy /api/
+                                 ▼
+                          ┌─────────────┐
+                          │  Flask API  │
+                          │  (backend)  │
                           └──────┬──────┘
                                  │ publish ESC/POS bytes
                                  ▼
@@ -38,74 +44,58 @@ Supports three modes: direct USB, mock (development), and MQTT (networked printe
                  └─────────────┘   └─────────────┘
 ```
 
+## Repository Structure
+
+```
+frontend/       Static SPA served by nginx
+backend/        Flask API server
+installers/     GL300 router + Pi host provisioning scripts
+tools/          Standalone utility scripts
+data/           Recipe data and test URLs
+```
+
 ## Getting Started
 
 ### Prerequisites
--   Python 3.9+
--   `uv` (Recommended for package management)
--   `libusb-1.0-0` (Required for physical USB printer access)
+-   Docker & Docker Compose (recommended)
+-   OR: Python 3.9+ and `uv` for local development
 
-### Installation
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-repo/checkoff-printer.git
-    cd checkoff-printer
-    ```
-
-2.  **Install dependencies:**
-    ```bash
-    uv sync
-    # OR using pip
-    pip install -r requirements.txt
-    ```
-
-## Usage
-
-### Development (Mock Mode)
-Run the application without a printer connected. Output is simulated in the logs/api.
+### Quick Start (Docker)
 
 ```bash
-export PRINTER_MODE=mock
-uv run app.py
+cp .env.example .env       # Review and customize env vars
+docker compose up --build -d
 ```
 Open [http://localhost:8080](http://localhost:8080) in your browser.
 
-### Production - USB (Raspberry Pi)
-1.  **Connect Printer**: Plug in the Epson TM-H6000IV via USB.
-2.  **Find Device IDs**: Run `lsusb` to confirm vendor/product IDs.
-    -   Default configured: `04b8:0202`.
-    -   If different, set `PRINTER_VENDOR_ID` and `PRINTER_PRODUCT_ID` env vars.
-3.  **Run**:
+### Local Development
+
+1.  **Install backend dependencies:**
     ```bash
-    export PRINTER_MODE=usb
-    uv run app.py
+    cd backend && uv sync
     ```
+
+2.  **Run the backend (mock mode):**
+    ```bash
+    cd backend && PRINTER_MODE=mock uv run app.py
+    ```
+
+3.  **Open the frontend:**
+    Open `frontend/index.html` directly in a browser, or use the Docker setup for the full nginx proxy.
 
 ### Production - MQTT (Networked Printers)
 For printers connected to GL300 routers on the network:
 
-1.  **Set up the MQTT broker** (Mosquitto in Docker):
+1.  **Deploy with Docker Compose:**
     ```bash
-    cd backend && docker compose up -d
+    PRINTER_MODE=mqtt docker compose up --build -d
     ```
 
 2.  **Set up GL300 routers** (one per printer):
     ```bash
-    cd printers
+    cd installers/printers
     ./install.sh 192.168.50.208 'router-password' jesse-printer
     ./install.sh 192.168.50.59 'router-password' kitchen-huxley
-    ```
-
-3.  **Run the app**:
-    ```bash
-    export PRINTER_MODE=mqtt
-    export MQTT_BROKER_HOST=192.168.50.211
-    export MQTT_BROKER_PORT=1883
-    export MQTT_BROKER_USER=printer
-    export MQTT_BROKER_PASS=printer
-    export MQTT_PRINTERS="jesse-printer:Jesse,kitchen-huxley:Kitchen"
-    uv run app.py
     ```
 
 ## Environment Variables
@@ -116,19 +106,13 @@ For printers connected to GL300 routers on the network:
 | `PORT` | `8080` | Flask server port |
 | `PRINTER_VENDOR_ID` | `0x04B8` | USB vendor ID |
 | `PRINTER_PRODUCT_ID` | `0x0202` | USB product ID |
-| `MQTT_BROKER_HOST` | `192.168.50.211` | MQTT broker hostname |
+| `MQTT_BROKER_HOST` | `mosquitto` | MQTT broker hostname |
 | `MQTT_BROKER_PORT` | `1883` | MQTT broker port |
 | `MQTT_BROKER_USER` | `printer` | MQTT username |
 | `MQTT_BROKER_PASS` | `printer` | MQTT password |
 | `MQTT_PRINTERS` | `jesse-printer:Jesse,kitchen-huxley:Kitchen` | Comma-separated `id:Label` printer list |
 
-## Docker Deployment
-The easiest way to run on a Pi. The container includes all system dependencies.
-
-```bash
-docker-compose up --build -d
-```
-*Note: `docker-compose.yml` uses privileged mode/device mapping to access USB.*
+See `.env.example` for all available variables.
 
 ## API Documentation
 
@@ -155,5 +139,6 @@ Plain text
 ```
 
 ## Development
--   **Linting**: `uv run ruff check .`
--   **Type Checking**: `uv run ty .`
+-   **Linting**: `cd backend && uv run ruff check .`
+-   **Type Checking**: `cd backend && uv run ty .`
+-   **Tests**: `cd backend && uv run pytest tests/`

@@ -90,5 +90,5 @@ if __name__ == "__main__":
 
     for source in sources:
         links = fetch_links(source["url"], source["filter"])
-        append_to_file("test-recipes.txt", links)
+        append_to_file("data/test-recipes.txt", links)
         time.sleep(1)  # Be nice

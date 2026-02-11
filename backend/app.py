@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, request
 
 from formatters.recipe import RecipeFormatter
 from formatters.todo import TodoFormatter
@@ -36,9 +36,13 @@ recipe_formatter = RecipeFormatter()
 todo_formatter = TodoFormatter()
 
 
-@app.route("/")
-def home():
-    return render_template("index.html")
+@app.after_request
+def add_cors_headers(response):
+    if app.debug:
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    return response
 
 
 @app.route("/api/printers")

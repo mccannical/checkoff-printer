@@ -15,3 +15,5 @@ jobs:
       - uses: googleapis/release-please-action@v4
         with:
           release-type: python
+          extra-files: |
+            backend/pyproject.toml

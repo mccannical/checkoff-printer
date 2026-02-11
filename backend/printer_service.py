@@ -1,8 +1,8 @@
-from typing import Any
 import os
+import re
 import textwrap
 import time
-import re
+from typing import Any
 
 from escpos.printer import Dummy, Usb
 

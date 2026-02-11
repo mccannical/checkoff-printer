@@ -11,7 +11,7 @@ logging.basicConfig(
 )
 
 
-def extract_recipes(input_file="test-recipes.txt", output_file="recipes.json"):
+def extract_recipes(input_file="data/test-recipes.txt", output_file="data/recipes.json"):
     recipes_data = []
 
     try:

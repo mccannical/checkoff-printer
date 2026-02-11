@@ -1,0 +1,14 @@
+[Unit]
+Description=Checkoff Printer Web Service
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+User=root
+WorkingDirectory=/home/printer/checkoff-printer
+ExecStart=/usr/bin/docker compose -f /home/printer/checkoff-printer/docker-compose.yml up
+ExecStop=/usr/bin/docker compose -f /home/printer/checkoff-printer/docker-compose.yml down
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

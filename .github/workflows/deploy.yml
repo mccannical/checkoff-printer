@@ -15,19 +15,23 @@ jobs:
 
       - name: Sync to Live Folder
         run: |
-          # Sync everything except the runner itself, logs, and runtime artifacts
           rsync -av --delete \
             --exclude='actions-runner/' \
-            --exclude='logs/' \
             --exclude='.git/' \
             --exclude='**/__pycache__/' \
             --exclude='.venv/' \
+            --exclude='.env' \
             deploy-temp/ /home/printer/checkoff-printer/
 
-      - name: Sync Dependencies
+      - name: Install systemd service if missing
+        run: |
+          if [ ! -f /etc/systemd/system/checkoff-printer.service ]; then
+            sudo cp /home/printer/checkoff-printer/installers/host/checkoff-printer.service /etc/systemd/system/
+            sudo systemctl daemon-reload
+            sudo systemctl enable checkoff-printer
+          fi
+
+      - name: Deploy with Docker Compose
         run: |
           cd /home/printer/checkoff-printer
-          /home/printer/.local/bin/uv sync
-
-      - name: Restart Service
-        run: sudo systemctl restart checkoff-printer
+          docker compose up --build -d
