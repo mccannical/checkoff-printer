@@ -17,7 +17,7 @@ Supports three modes: direct USB, mock (development), and MQTT (networked printe
 
 ```
                           ┌─────────────┐
-                   :8080  │   nginx     │
+                     :80  │   nginx     │
                    ------>│  (frontend) │
                           └──────┬──────┘
                                  │ proxy /api/
@@ -66,7 +66,7 @@ data/           Recipe data and test URLs
 cp .env.example .env       # Review and customize env vars
 docker compose up --build -d
 ```
-Open [http://localhost:8080](http://localhost:8080) in your browser.
+Open [http://localhost](http://localhost) in your browser.
 
 ### Local Development
 
@@ -84,11 +84,11 @@ Open [http://localhost:8080](http://localhost:8080) in your browser.
     Open `frontend/index.html` directly in a browser, or use the Docker setup for the full nginx proxy.
 
 ### Production - MQTT (Networked Printers)
-For printers connected to GL300 routers on the network:
+MQTT mode is the default. For printers connected to GL300 routers on the network:
 
 1.  **Deploy with Docker Compose:**
     ```bash
-    PRINTER_MODE=mqtt docker compose up --build -d
+    docker compose up --build -d
     ```
 
 2.  **Set up GL300 routers** (one per printer):
@@ -102,7 +102,7 @@ For printers connected to GL300 routers on the network:
 
 | Variable | Default | Description |
 |---|---|---|
-| `PRINTER_MODE` | `mock` | `mock`, `usb`, or `mqtt` |
+| `PRINTER_MODE` | `mqtt` | `mock`, `usb`, or `mqtt` |
 | `PORT` | `8080` | Flask server port |
 | `PRINTER_VENDOR_ID` | `0x04B8` | USB vendor ID |
 | `PRINTER_PRODUCT_ID` | `0x0202` | USB product ID |

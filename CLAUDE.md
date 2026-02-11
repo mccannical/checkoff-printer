@@ -30,7 +30,7 @@ For frontend development, open `frontend/index.html` directly or use the Docker 
 ```bash
 docker compose up --build -d    # Builds frontend (nginx) + backend (Flask) + mosquitto
 ```
-Frontend is served at `:8080`, proxying `/api/` requests to the backend.
+Frontend is served at `:80`, proxying `/api/` requests to the backend.
 
 ### Linting & Type Checking
 ```bash
