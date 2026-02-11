@@ -1,6 +1,6 @@
 [project]
 name = "checkoff-printer"
-version = "0.1.0"
+version = "1.0.0"
 description = "Thermal printer application for recipes and todo lists"
 readme = "../README.md"
 requires-python = ">=3.9"
