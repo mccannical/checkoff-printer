@@ -30,6 +30,7 @@ services:
       - "1883"
     ports:
       - "1883:1883"
+      - "9883:9883"
     volumes:
       - mosquitto-data:/mosquitto/data
       - mosquitto-log:/mosquitto/log
