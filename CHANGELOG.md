@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0](https://github.com/mccannical/checkoff-printer/compare/v0.0.1...v0.1.0) (2026-02-11)
+
+
+### Features
+
+* add MQTT printer mode with networked GL300 print servers ([2a9e763](https://github.com/mccannical/checkoff-printer/commit/2a9e763ffce225ef436645838a16d5aeb0f04abc))
+* default to mqtt mode and serve frontend on port 80 ([8400ef4](https://github.com/mccannical/checkoff-printer/commit/8400ef4df478013862546cc9636ff1d229c88878))
+
 ## [Unreleased] - 2026-02-11
 
 ### GL300 Router Print Network Setup
