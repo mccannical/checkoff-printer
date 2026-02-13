@@ -3,7 +3,7 @@ let printerMode = null;
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    fetch('/api/printers')
+    fetch('api/printers')
         .then(r => r.json())
         .then(data => {
             printerMode = data.mode;
@@ -43,18 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Forms
-    setupForm('recipe-url-form', '/api/print/recipe', (formData) => ({
+    setupForm('recipe-url-form', 'api/print/recipe', (formData) => ({
         mode: 'url',
         url: formData.get('url')
     }));
 
-    setupForm('recipe-text-form', '/api/print/recipe', (formData) => ({
+    setupForm('recipe-text-form', 'api/print/recipe', (formData) => ({
         mode: 'text',
         title: formData.get('title'),
         text: formData.get('text')
     }));
 
-    setupForm('todo-form', '/api/print/todo', (formData) => ({
+    setupForm('todo-form', 'api/print/todo', (formData) => ({
         title: formData.get('title'),
         items: formData.get('items')
     }));

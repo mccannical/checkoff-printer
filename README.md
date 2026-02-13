@@ -246,6 +246,10 @@ The production instance runs on a Raspberry Pi at `printer.mccannical.com`. Push
 3. Installs the systemd service if not already present
 4. Rebuilds & restarts Docker Compose services
 
+### Subpath Deployment
+
+The app is served under the `/checkoff/` subpath at `printer.mccannical.com/checkoff/`. API paths in `frontend/app.js` use **relative paths** (e.g., `api/printers` instead of `/api/printers`) so that requests resolve correctly regardless of the base path. This is important because absolute paths would break when the app is mounted under a subpath like `/checkoff/`.
+
 ## Development
 
 - **Linting**: `cd backend && uv run ruff check .`
