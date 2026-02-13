@@ -2,6 +2,10 @@ logs/*
 backend/logs/*
 extraction_errors.log
 
+# macOS
+.DS_Store
+**/.DS_Store
+
 # ---- Python ----
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -5,13 +5,17 @@ A "Smart" Thermal Printer application for your home. It connects to Epson TM-H60
 Supports three modes: direct USB, mock (development), and MQTT (networked printers via GL-iNet GL300 routers).
 
 ## Features
--   **Web Interface**: Mobile-first UI to paste recipes or manage lists.
--   **Smart Formatting**: Automatically scrapes ingredients/steps from recipe URLs or raw text and formats them to fit the 80mm thermal tape.
--   **Print Preview**: "Dry Run" mode to see exactly what will print.
--   **Markdown Todo Lists**: Headers (`#`, `##`, `###`), checkboxes, numbered lists, bold text.
--   **MQTT Networked Printing**: Send print jobs to remote printers over MQTT via GL300 routers.
--   **Printer Selection**: Choose which printer to send to from the UI (Jesse, Kitchen, etc.).
--   **Hardware & Mock Modes**: Works with real USB hardware, MQTT, or simulates output for development.
+
+- **Web Interface**: Mobile-first UI to paste recipes or manage lists.
+- **Smart Formatting**: Automatically scrapes ingredients/steps from recipe URLs (via JSON-LD, meta tags, and the `recipe-scrapers` library) or raw text and formats them to fit the 80mm thermal tape.
+- **Print Preview**: "Dry Run" mode to see exactly what will print.
+- **Markdown Todo Lists**: Headers (`#`, `##`, `###`), checkboxes, numbered lists, bold text.
+- **MQTT Networked Printing**: Send print jobs to remote printers over MQTT via GL300 routers.
+- **Printer Selection**: Choose which printer to send to from the UI (Jesse, Kitchen, etc.).
+- **Hardware & Mock Modes**: Works with real USB hardware, MQTT, or simulates output for development.
+- **Print Logging**: All prints are automatically saved as `.txt` files in the `logs/` directory with timestamps and source URLs.
+- **Fraction Normalization**: Automatic conversion of Unicode fractions (½, ⅓, etc.) to ASCII (1/2, 1/3, etc.) for printer compatibility.
+- **CI/CD**: Automated commitlinting, releases via release-please, and deploy-on-push to Raspberry Pi via self-hosted GitHub Actions runner.
 
 ## Architecture
 
@@ -47,18 +51,27 @@ Supports three modes: direct USB, mock (development), and MQTT (networked printe
 ## Repository Structure
 
 ```
-frontend/       Static SPA served by nginx
-backend/        Flask API server
-installers/     GL300 router + Pi host provisioning scripts
-tools/          Standalone utility scripts
-data/           Recipe data and test URLs
+frontend/                Static SPA served by nginx (index.html, app.js, style.css)
+backend/                 Flask API server
+  ├── app.py             Flask entry point & API routes
+  ├── printer_service.py Core print logic (ESC/POS rendering, text wrapping)
+  ├── mqtt_printer.py    MQTT publisher for networked printers
+  └── formatters/        Input parsers (recipe.py, todo.py)
+installers/
+  ├── printers/          GL300 router provisioning (install.sh)
+  └── host/              Raspberry Pi host setup (systemd service, permissions)
+tools/                   Standalone utility scripts (recipe extraction, URL fetching, debug)
+data/                    Recipe data and test URLs (recipes.json, test-recipes.txt)
+logs/                    Auto-generated print logs (gitignored)
+.github/workflows/       CI/CD (commitlint, release-please, deploy to Pi)
 ```
 
 ## Getting Started
 
 ### Prerequisites
--   Docker & Docker Compose (recommended)
--   OR: Python 3.9+ and `uv` for local development
+
+- Docker & Docker Compose (recommended)
+- OR: Python 3.9+ and `uv` for local development
 
 ### Quick Start (Docker)
 
@@ -66,16 +79,19 @@ data/           Recipe data and test URLs
 cp .env.example .env       # Review and customize env vars
 docker compose up --build -d
 ```
-Open [http://localhost](http://localhost) in your browser.
+
+Open [http://printer.mccannical.com](http://printer.mccannical.com) in your browser.
 
 ### Local Development
 
 1.  **Install backend dependencies:**
+
     ```bash
     cd backend && uv sync
     ```
 
 2.  **Run the backend (mock mode):**
+
     ```bash
     cd backend && PRINTER_MODE=mock uv run app.py
     ```
@@ -83,10 +99,12 @@ Open [http://localhost](http://localhost) in your browser.
 3.  **Open the frontend:**
     Open `frontend/index.html` directly in a browser, or use the Docker setup for the full nginx proxy.
 
-### Production - MQTT (Networked Printers)
+### Production — MQTT (Networked Printers)
+
 MQTT mode is the default. For printers connected to GL300 routers on the network:
 
 1.  **Deploy with Docker Compose:**
+
     ```bash
     docker compose up --build -d
     ```
@@ -100,33 +118,37 @@ MQTT mode is the default. For printers connected to GL300 routers on the network
 
 ## Environment Variables
 
-| Variable | Default | Description |
-|---|---|---|
-| `PRINTER_MODE` | `mqtt` | `mock`, `usb`, or `mqtt` |
-| `PORT` | `8080` | Flask server port |
-| `PRINTER_VENDOR_ID` | `0x04B8` | USB vendor ID |
-| `PRINTER_PRODUCT_ID` | `0x0202` | USB product ID |
-| `MQTT_BROKER_HOST` | `mosquitto` | MQTT broker hostname |
-| `MQTT_BROKER_PORT` | `1883` | MQTT broker port |
-| `MQTT_BROKER_USER` | `printer` | MQTT username |
-| `MQTT_BROKER_PASS` | `printer` | MQTT password |
-| `MQTT_PRINTERS` | `jesse-printer:Jesse,kitchen-huxley:Kitchen` | Comma-separated `id:Label` printer list |
+| Variable             | Default                                      | Description                             |
+| -------------------- | -------------------------------------------- | --------------------------------------- |
+| `PRINTER_MODE`       | `mqtt`                                       | `mock`, `usb`, or `mqtt`                |
+| `PORT`               | `8080`                                       | Flask server port                       |
+| `PRINTER_VENDOR_ID`  | `0x04B8`                                     | USB vendor ID (usb mode only)           |
+| `PRINTER_PRODUCT_ID` | `0x0202`                                     | USB product ID (usb mode only)          |
+| `PRINTER_IN_EP`      | `0x81`                                       | USB input endpoint (usb mode only)      |
+| `PRINTER_OUT_EP`     | `0x01`                                       | USB output endpoint (usb mode only)     |
+| `MQTT_BROKER_HOST`   | `mosquitto`                                  | MQTT broker hostname                    |
+| `MQTT_BROKER_PORT`   | `1883`                                       | MQTT broker port                        |
+| `MQTT_BROKER_USER`   | `printer`                                    | MQTT username                           |
+| `MQTT_BROKER_PASS`   | `printer`                                    | MQTT password                           |
+| `MQTT_PRINTERS`      | `jesse-printer:Jesse,kitchen-huxley:Kitchen` | Comma-separated `id:Label` printer list |
 
 See `.env.example` for all available variables.
 
 ## API Documentation
 
-The API is available at `http://printer.mccannical.com/api/` (or `http://<pi-ip>/api/`). All POST endpoints accept JSON with `Content-Type: application/json`.
+The API is available at `http://printer.mccannical.com/api/` (or `http://<pi-ip>:3000/api/`). All POST endpoints accept JSON with `Content-Type: application/json`.
 
 ### Endpoints
 
--   `GET /api/printers` — List available printers
--   `POST /api/print/recipe` — Print a recipe from URL or text
--   `POST /api/print/todo` — Print a todo/checklist
+- `GET /api/printers` — List available printers and current mode
+- `GET /api/status` — Debug info (dummy output in mock mode)
+- `POST /api/print/recipe` — Print a recipe from URL or text
+- `POST /api/print/todo` — Print a todo/checklist
 
 ### Examples
 
 **Print a recipe from a URL:**
+
 ```bash
 curl -X POST http://printer.mccannical.com/api/print/recipe \
   -H 'Content-Type: application/json' \
@@ -138,6 +160,7 @@ curl -X POST http://printer.mccannical.com/api/print/recipe \
 ```
 
 **Print a recipe from raw text:**
+
 ```bash
 curl -X POST http://printer.mccannical.com/api/print/recipe \
   -H 'Content-Type: application/json' \
@@ -150,6 +173,7 @@ curl -X POST http://printer.mccannical.com/api/print/recipe \
 ```
 
 **Print a todo list:**
+
 ```bash
 curl -X POST http://printer.mccannical.com/api/print/todo \
   -H 'Content-Type: application/json' \
@@ -161,6 +185,7 @@ curl -X POST http://printer.mccannical.com/api/print/todo \
 ```
 
 **Preview before printing** (returns formatted text without sending to printer):
+
 ```bash
 curl -X POST http://printer.mccannical.com/api/print/todo \
   -H 'Content-Type: application/json' \
@@ -174,12 +199,13 @@ curl -X POST http://printer.mccannical.com/api/print/todo \
 
 ### Printers
 
-| ID | Name | Location |
-|---|---|---|
-| `jesse-printer` | Jesse | Jesse's desk |
+| ID               | Name    | Location        |
+| ---------------- | ------- | --------------- |
+| `jesse-printer`  | Jesse   | Jesse's desk    |
 | `kitchen-huxley` | Kitchen | Kitchen counter |
 
 Get the current list at any time:
+
 ```bash
 curl http://printer.mccannical.com/api/printers
 ```
@@ -201,7 +227,31 @@ The `items` field in `/api/print/todo` supports markdown-like formatting:
 Plain text
 ```
 
+## CI/CD
+
+Three GitHub Actions workflows run on pushes to `main`:
+
+| Workflow         | Trigger             | Description                                                                                          |
+| ---------------- | ------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Commitlint**   | push & PR to `main` | Enforces [Conventional Commits](https://www.conventionalcommits.org/) format                         |
+| **Release**      | push to `main`      | Automated versioning & changelogs via [release-please](https://github.com/googleapis/release-please) |
+| **Deploy to Pi** | push to `main`      | Self-hosted runner syncs code to Pi and runs `docker compose up --build -d`                          |
+
+## Deployment
+
+The production instance runs on a Raspberry Pi at `printer.mccannical.com`. Pushing to `main` triggers automatic deployment via a self-hosted GitHub Actions runner:
+
+1. Checks out the code
+2. Rsyncs to `/home/printer/checkoff-printer/` (excluding `.git`, `.venv`, `.env`, etc.)
+3. Installs the systemd service if not already present
+4. Rebuilds & restarts Docker Compose services
+
 ## Development
--   **Linting**: `cd backend && uv run ruff check .`
--   **Type Checking**: `cd backend && uv run ty .`
--   **Tests**: `cd backend && uv run pytest tests/`
+
+- **Linting**: `cd backend && uv run ruff check .`
+- **Auto-fix**: `cd backend && uv run ruff check --fix .`
+- **Type Checking**: `cd backend && uv run ty .`
+- **Tests**: `cd backend && uv run pytest tests/`
+- **Single test**: `cd backend && uv run pytest tests/test_extraction_batch.py -k "test_recipe_extraction[URL]"`
+
+> **Note:** `test_extraction_batch.py` makes live HTTP requests to recipe URLs listed in `data/test-recipes.txt`.
