@@ -239,7 +239,69 @@ Three GitHub Actions workflows run on pushes to `main`:
 
 ## Deployment
 
-The production instance runs on a Raspberry Pi at `printer.mccannical.com`. Pushing to `main` triggers automatic deployment via a self-hosted GitHub Actions runner:
+### Podman Quadlet (brain server — current)
+
+The primary deployment runs on `brain.mccannical.com` using Podman quadlets — systemd unit files that manage containers natively without Docker Compose.
+
+**Architecture:** All three containers (`mosquitto`, `backend`, `frontend`) run inside a single Podman pod sharing the same network namespace (localhost). nginx proxies `/api/` to `localhost:8080`.
+
+**Quadlet files** (`~/.config/containers/systemd/`):
+
+| File | Description |
+|------|-------------|
+| `checkoff-printer.pod` | Pod definition, publishes ports 3000, 1883, 9883 |
+| `checkoff-printer-mosquitto.container` | Mosquitto MQTT broker |
+| `checkoff-printer-backend.container` | Flask API (locally built image) |
+| `checkoff-printer-frontend.container` | nginx frontend (locally built image) |
+
+**Runtime data** (`/opt/openclaw/platform/apps/printer/`):
+
+```
+config/
+  mosquitto.conf      # allow_anonymous true, stdout logging
+  nginx.conf          # proxies /api/ to localhost:8080
+data/
+  mosquitto/data/     # MQTT persistence
+  logs/               # print logs
+```
+
+**Managing services:**
+
+```bash
+# Start
+systemctl --user start checkoff-printer-pod checkoff-printer-mosquitto checkoff-printer-backend checkoff-printer-frontend
+
+# Stop
+systemctl --user stop checkoff-printer-frontend checkoff-printer-backend checkoff-printer-mosquitto checkoff-printer-pod
+
+# Status
+systemctl --user status checkoff-printer-pod checkoff-printer-backend checkoff-printer-frontend
+
+# Logs
+journalctl --user -u checkoff-printer-backend -f
+```
+
+**Rebuilding images** (after code changes):
+
+```bash
+# Clone or pull latest
+git clone https://github.com/mccannical/checkoff-printer /opt/openclaw/workspace/huxley/infra/checkoff-printer/src
+
+# Rebuild
+podman build -t checkoff-printer-backend:latest ./backend
+podman build -t checkoff-printer-frontend:latest ./frontend
+
+# Restart to pick up new images
+systemctl --user restart checkoff-printer-backend checkoff-printer-frontend
+```
+
+> **Note:** The pod's nginx.conf (mounted from `config/nginx.conf`) uses `localhost:8080` as the backend upstream instead of `backend:8080`. This is required because all containers share the pod's network namespace.
+
+---
+
+### Raspberry Pi (legacy)
+
+The original deployment runs on a Raspberry Pi at `printer.mccannical.com`. Pushing to `main` triggers automatic deployment via a self-hosted GitHub Actions runner:
 
 1. Checks out the code
 2. Rsyncs to `/home/printer/checkoff-printer/` (excluding `.git`, `.venv`, `.env`, etc.)
